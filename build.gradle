@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+group = 'com.zx5435'
+version = '1.0'
+sourceCompatibility = '1.8'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenLocal()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    jcenter()
+    maven { url "https://repository.apache.org/content/repositories/snapshots/" }
+    mavenCentral()
+}
+
+dependencies {
+
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
