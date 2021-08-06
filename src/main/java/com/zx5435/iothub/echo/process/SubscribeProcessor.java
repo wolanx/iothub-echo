@@ -1,9 +1,9 @@
 package com.zx5435.iothub.echo.process;
 
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,19 +16,26 @@ public class SubscribeProcessor implements IProcessor<MqttSubscribeMessage> {
     @Override
     public void process(ChannelHandlerContext ctx, MqttSubscribeMessage msg) {
         List<MqttTopicSubscription> subs = msg.payload().topicSubscriptions();
+        List<Integer> qosArr = new ArrayList<>();
         for (MqttTopicSubscription sub : subs) {
             String topic = sub.topicName();
             System.out.println("topic = " + topic);
 
-            MqttPublishMessage nm = asdf(topic, sub.qualityOfService(), msg.variableHeader().messageId());
-            ctx.channel().writeAndFlush(nm);
+            // todo
+
+            qosArr.add(sub.qualityOfService().value());
         }
+
+        MqttSubAckMessage nm = genAck(msg.variableHeader().messageId(), qosArr);
+        ctx.channel().writeAndFlush(nm);
     }
 
-    private MqttPublishMessage asdf(String topic, MqttQoS mqttQoS, int i) {
-        MqttFixedHeader fixedHeader = new MqttFixedHeader(MqttMessageType.PUBLISH, false, mqttQoS, true, 0);
-        MqttPublishVariableHeader variableHeader = new MqttPublishVariableHeader(topic, i); // messageId
-        return new MqttPublishMessage(fixedHeader, variableHeader, Unpooled.buffer().writeBytes("hehe".getBytes()));
+    private MqttSubAckMessage genAck(int msgId, List<Integer> qosArr) {
+        return new MqttSubAckMessage(
+                new MqttFixedHeader(MqttMessageType.SUBACK, false, MqttQoS.AT_MOST_ONCE, false, 0),
+                MqttMessageIdVariableHeader.from(msgId),
+                new MqttSubAckPayload(qosArr)
+        );
     }
 
 }
