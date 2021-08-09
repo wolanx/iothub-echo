@@ -1,7 +1,10 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'com.google.cloud.tools.jib' version '2.6.0'
+}
 
 group = 'com.zx5435'
-version = '1.0'
+version = '0.1.0'
 sourceCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 
@@ -16,6 +19,24 @@ repositories {
 ext {
     slf4jVersion = '1.7.15'
     log4jVersion = '2.12.1'
+}
+
+jib {
+    from {
+        image = 'openjdk:8u292-slim'
+    }
+    to {
+        image = 'zx5435/iothub-echo'
+        tags = [version.toString()]
+    }
+    container {
+        mainClass = 'com.zx5435.iothub.echo.IotHubServer'
+        jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
+        //        args = ['some', 'args']
+        ports = ['1883']
+        format = 'OCI'
+        creationTime = 'USE_CURRENT_TIMESTAMP'
+    }
 }
 
 dependencies {

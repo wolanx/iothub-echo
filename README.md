@@ -1,8 +1,9 @@
 # iothub-echo
 
-https://github.com/eclipse/mosquitto
+> aliyun iothub 本地化部署，适配方案，无需代码改动
 
-https://hub.docker.com/_/eclipse-mosquitto?tab=description&page=1&ordering=last_updated
+## Deploy
 
-mqtt 协议介绍
-https://juejin.cn/post/6844903696317284359
+```shell
+docker run --restart=unless-stopped --name iothub -d -p 1883:1883 zx5435/iothub-echo:0.1.0
+```
