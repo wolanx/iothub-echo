@@ -1,5 +1,6 @@
 package com.zx5435.iothub.echo;
 
+import com.zx5435.iothub.echo.iot.MainHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -17,12 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 public class IotHubServer {
 
     private Channel channel;
-
-    public static void main(String[] args) {
-        IotHubServer server = new IotHubServer();
-        server.start();
-        log.info("1");
-    }
 
     public void start() {
         NioEventLoopGroup group = new NioEventLoopGroup();

@@ -1,4 +1,4 @@
-package com.zx5435.iothub.echo;
+package com.zx5435.iothub.echo.iot;
 
 import com.zx5435.iothub.echo.process.*;
 import io.netty.channel.ChannelHandlerContext;

@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'com.google.cloud.tools.jib' version '2.6.0'
+    id 'org.springframework.boot' version '2.4.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group = 'com.zx5435'
@@ -11,14 +13,7 @@ compileJava.options.encoding = 'UTF-8'
 repositories {
     mavenLocal()
     maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
-    jcenter()
-    maven { url "https://repository.apache.org/content/repositories/snapshots/" }
     mavenCentral()
-}
-
-ext {
-    slf4jVersion = '1.7.15'
-    log4jVersion = '2.12.1'
 }
 
 jib {
@@ -40,13 +35,12 @@ jib {
 }
 
 dependencies {
+    // mqtt
     implementation 'io.netty:netty-all:4.1.66.Final'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
 
-    implementation "org.apache.logging.log4j:log4j-api:${log4jVersion}"
-    implementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
-    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
-    implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    // spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
