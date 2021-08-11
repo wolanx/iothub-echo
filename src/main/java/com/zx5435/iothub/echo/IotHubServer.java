@@ -16,9 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class IotHubServer {
 
+    private Channel channel;
+
     public static void main(String[] args) {
-        (new IotHubServer()).start();
-        log.info("123");
+        IotHubServer server = new IotHubServer();
+        server.start();
+        log.info("1");
     }
 
     public void start() {
@@ -46,19 +49,20 @@ public class IotHubServer {
                     }
                 });
 
-        bootstrap.bind(1883).addListener(e -> {
+        this.channel = bootstrap.bind(1883).addListener(e -> {
             if (e.isSuccess()) {
-                log.warn("1");
+                log.info("1883 work");
             } else {
-                log.warn("0");
+                log.error("1883 error");
             }
-        });
+        }).channel();
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
     }
 
     public void stop() {
         log.info("stop");
+        this.channel.closeFuture();
     }
 
 }

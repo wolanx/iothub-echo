@@ -1,9 +1,6 @@
 package com.zx5435.iothub.echo;
 
-import com.zx5435.iothub.echo.process.PubAckProcessor;
-import com.zx5435.iothub.echo.process.PublishProcessor;
-import com.zx5435.iothub.echo.process.SubscribeProcessor;
-import com.zx5435.iothub.echo.process.UnsubscribeProcessor;
+import com.zx5435.iothub.echo.process.*;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.mqtt.*;
@@ -23,15 +20,17 @@ public class MainHandler extends SimpleChannelInboundHandler<MqttMessage> {
 
         switch (mqttMessageType) {
             case CONNECT:
-                ctx.channel().writeAndFlush(new MqttConnAckMessage(
-                        new MqttFixedHeader(MqttMessageType.CONNACK, false, MqttQoS.AT_MOST_ONCE, false, 0),
-                        new MqttConnAckVariableHeader(MqttConnectReturnCode.CONNECTION_ACCEPTED, false)
-                ));
+                if (msg instanceof MqttConnectMessage) {
+                    ConnectProcessor.INSTANCE.process(ctx, (MqttConnectMessage) msg);
+                } else {
+                    ConnectProcessor.INSTANCE.processOther(ctx, msg);
+                }
+                break;
+            case DISCONNECT:
+                DisconnectProcessor.INSTANCE.process(ctx, msg);
                 break;
             case PINGREQ:
-                ctx.channel().writeAndFlush(new MqttMessage(
-                        new MqttFixedHeader(MqttMessageType.PINGRESP, false, MqttQoS.AT_MOST_ONCE, false, 0)
-                ));
+                PingReqProcessor.INSTANCE.process(ctx, msg);
                 break;
             case SUBSCRIBE:
                 SubscribeProcessor.INSTANCE.process(ctx, (MqttSubscribeMessage) msg);

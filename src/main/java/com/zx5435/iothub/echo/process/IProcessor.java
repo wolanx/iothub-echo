@@ -9,8 +9,9 @@ import io.netty.handler.codec.mqtt.MqttMessage;
 interface IProcessor<T extends MqttMessage> {
 
     /**
+     * do
      * @param ctx ctx
-     * @param message msg
+     * @param msg msg
      */
     void process(ChannelHandlerContext ctx, T msg);
 
