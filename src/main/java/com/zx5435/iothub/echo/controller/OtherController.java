@@ -11,7 +11,7 @@ public class OtherController {
 
     @GetMapping("/")
     public String index() {
-        return "Home";
+        return "Hi iothub-echo.";
     }
 
 }

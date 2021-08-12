@@ -1,6 +1,5 @@
-package com.zx5435.iothub.echo;
+package com.zx5435.iothub.echo.broker;
 
-import com.zx5435.iothub.echo.iot.MainHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -10,12 +9,19 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.mqtt.MqttDecoder;
 import io.netty.handler.codec.mqtt.MqttEncoder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @author zx5435
  */
 @Slf4j
-public class IotHubServer {
+@Component
+public class IotHubMqtt {
+
+    @Resource
+    IotHubHandler iotHubHandler;
 
     private Channel channel;
 
@@ -40,7 +46,7 @@ public class IotHubServer {
                         pipeline.addLast("mqttDecoder", new MqttDecoder());
                         pipeline.addLast("mqttEncoder", MqttEncoder.INSTANCE);
 
-                        pipeline.addLast("mainHandler", new MainHandler());
+                        pipeline.addLast("mainHandler", iotHubHandler);
                     }
                 });
 

@@ -7,10 +7,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @author zx5435
  */
 @SpringBootApplication
-public class IotHubApplication {
+public class IotHubTest {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(IotHubApplication.class).run(args);
+        new SpringApplicationBuilder(IotHubTest.class).run(args);
     }
 
 }

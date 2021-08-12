@@ -1,23 +1,31 @@
-package com.zx5435.iothub.echo.process;
+package com.zx5435.iothub.echo.broker.process;
 
+import com.zx5435.iothub.echo.model.dao.DeviceDAO;
+import com.zx5435.iothub.echo.model.db.DeviceDO;
 import com.zx5435.iothub.echo.util.ChanUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.*;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * @author zx5435
  * a1p9xMXq5Nd1.iot-as-mqtt.cn-shanghai.aliyuncs.com
  */
+@Service
 public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
 
-    public static final ConnectProcessor INSTANCE = new ConnectProcessor();
+    @Resource
+    DeviceDAO deviceDAO;
 
     @Override
     public void process(ChannelHandlerContext ctx, MqttConnectMessage msg) {
         Channel channel = ctx.channel();
         String username = msg.payload().userName();
-        String password = new String(msg.payload().passwordInBytes());
+        byte[] password = msg.payload().passwordInBytes();
 
         if (!checkAccess(username, password)) {
             channel.writeAndFlush(genDeny());
@@ -51,16 +59,24 @@ public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
         );
     }
 
-    private boolean checkAccess(String username, String password) {
-        if (username == null) {
+    private boolean checkAccess(String username, byte[] passwordByte) {
+        if (username == null || passwordByte == null) {
             return false;
         }
-        if (username.equals(password)) {
-            return true;
-        }
+        String password = new String(passwordByte);
+//        if (username.equals(password)) {
+//            return true;
+//        }
         System.out.println("username = " + username);
         System.out.println("password = " + password);
-        return false;
+        Optional<DeviceDO> device = deviceDAO.findByDeviceNameAndProductKey("iot-echo-903-913332", "a1p9xMXq5Nd");
+
+        if (!device.isPresent()) {
+            return false;
+        }
+
+        System.out.println("device = " + device);
+        return true;
     }
 
 }

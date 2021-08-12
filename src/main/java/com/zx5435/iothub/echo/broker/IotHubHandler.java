@@ -1,16 +1,25 @@
-package com.zx5435.iothub.echo.iot;
+package com.zx5435.iothub.echo.broker;
 
-import com.zx5435.iothub.echo.process.*;
+import com.zx5435.iothub.echo.broker.process.*;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.mqtt.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @author zx5435
  */
 @Slf4j
-public class MainHandler extends SimpleChannelInboundHandler<MqttMessage> {
+@Component
+@ChannelHandler.Sharable
+public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
+
+    @Resource
+    ConnectProcessor connectProcessor;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MqttMessage msg) throws Exception {
@@ -21,9 +30,9 @@ public class MainHandler extends SimpleChannelInboundHandler<MqttMessage> {
         switch (mqttMessageType) {
             case CONNECT:
                 if (msg instanceof MqttConnectMessage) {
-                    ConnectProcessor.INSTANCE.process(ctx, (MqttConnectMessage) msg);
+                    connectProcessor.process(ctx, (MqttConnectMessage) msg);
                 } else {
-                    ConnectProcessor.INSTANCE.processOther(ctx, msg);
+                    connectProcessor.processOther(ctx, msg);
                 }
                 break;
             case DISCONNECT:

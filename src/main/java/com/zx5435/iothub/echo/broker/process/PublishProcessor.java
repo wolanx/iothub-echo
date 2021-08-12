@@ -1,4 +1,4 @@
-package com.zx5435.iothub.echo.process;
+package com.zx5435.iothub.echo.broker.process;
 
 import com.zx5435.iothub.echo.util.ChanUtil;
 import io.netty.buffer.ByteBuf;

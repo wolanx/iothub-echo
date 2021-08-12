@@ -39,10 +39,22 @@ dependencies {
     implementation 'io.netty:netty-all:4.1.66.Final'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
 
+    // dev
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
     // spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // sqlite
+    implementation 'org.xerial:sqlite-jdbc:3.21.0.1'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+test {
+    useJUnitPlatform()
 }

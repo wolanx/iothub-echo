@@ -1,2 +1,15 @@
 server:
   port: 8080
+spring:
+  application:
+    name: iothub-echo
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:${user.home}/.iot-echo/db.sqlite3
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    database-platform: com.zx5435.iothub.echo.util.SqliteDialect
+    hibernate:
+      ddl-auto: update
