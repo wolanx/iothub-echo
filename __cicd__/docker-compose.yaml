@@ -1,0 +1,27 @@
+version: "3"
+services:
+  svc-web:
+    image: zx5435/iothub-echo:0.1.0
+    ports:
+      - 1883:1883
+      - 21883:8080
+#    volumes:
+#      - ./xxx:/xxx
+    environment:
+      - TZ=utc-8
+    networks:
+      - mynet
+  svc-redis:
+    image: redis:6.0.3-alpine
+    ports:
+      - 6379:6379
+    networks:
+      - mynet
+  svc-influxdb:
+    image: influxdb:1.7.11
+    ports:
+      - 8086:8086
+    networks:
+      - mynet
+networks:
+  mynet:
