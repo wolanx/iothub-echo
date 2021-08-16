@@ -21,6 +21,9 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
     @Resource
     ConnectProcessor connectProcessor;
 
+    @Resource
+    PublishProcessor publishProcessor;
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MqttMessage msg) throws Exception {
         MqttMessageType mqttMessageType = msg.fixedHeader().messageType();
@@ -51,7 +54,7 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
                 PubAckProcessor.INSTANCE.process(ctx, (MqttPubAckMessage) msg);
                 break;
             case PUBLISH:
-                PublishProcessor.INSTANCE.process(ctx, (MqttPublishMessage) msg);
+                publishProcessor.process(ctx, (MqttPublishMessage) msg);
                 break;
             default:
                 log.error("todo = " + mqttMessageType);

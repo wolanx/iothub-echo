@@ -13,3 +13,7 @@ spring:
     database-platform: com.zx5435.iothub.echo.util.SqliteDialect
     hibernate:
       ddl-auto: update
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
+    database: 0

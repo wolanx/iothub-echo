@@ -1,4 +1,4 @@
-import com.zx5435.iothub.echo.IotHubTest;
+import com.zx5435.iothub.echo.IotHubApplication;
 import com.zx5435.iothub.echo.model.dao.DeviceDAO;
 import com.zx5435.iothub.echo.model.db.DeviceDO;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 import java.util.List;
 
-@SpringBootTest(classes = IotHubTest.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = IotHubApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class DeviceTest {
 
     @Resource

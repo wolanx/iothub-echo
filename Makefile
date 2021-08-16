@@ -1,11 +1,11 @@
 default:
 	cat Makefile
 
-a:
+b:
 	./gradlew :jibDockerBuild
 
-a:
+up:
 	docker-compose up -d
 
-b:
+d:
 	docker-compose down

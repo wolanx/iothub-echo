@@ -6,7 +6,7 @@ import com.zx5435.iothub.echo.util.ChanUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author zx5435
  * a1p9xMXq5Nd1.iot-as-mqtt.cn-shanghai.aliyuncs.com
  */
-@Service
+@Component
 public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
 
     @Resource
@@ -64,19 +64,18 @@ public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
             return false;
         }
         String password = new String(passwordByte);
-//        if (username.equals(password)) {
-//            return true;
-//        }
         System.out.println("username = " + username);
         System.out.println("password = " + password);
+        if ("test".equals(username) && "test".equals(password)) {
+            return true;
+        }
         Optional<DeviceDO> device = deviceDAO.findByDeviceNameAndProductKey("iot-echo-903-913332", "a1p9xMXq5Nd");
 
-        if (!device.isPresent()) {
-            return false;
+        if (device.isPresent()) {
+            System.out.println("device = " + device);
+            return true;
         }
-
-        System.out.println("device = " + device);
-        return true;
+        return false;
     }
 
 }

@@ -5,13 +5,22 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttPublishMessage;
+import org.springframework.data.redis.core.StreamOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zx5435
  */
+@Component
 public class PublishProcessor implements IProcessor<MqttPublishMessage> {
 
-    public static final PublishProcessor INSTANCE = new PublishProcessor();
+    @Resource
+    StringRedisTemplate redisTemplate;
 
     @Override
     public void process(ChannelHandlerContext ctx, MqttPublishMessage msg) {
@@ -30,7 +39,13 @@ public class PublishProcessor implements IProcessor<MqttPublishMessage> {
         // AT_LEAST_ONCE MqttPubAckMessage variableHeader().packetId()
         // EXACTLY_ONCE when pubRel send PubRec variableHeader().packetId()
 
-        // todo
+        StreamOperations<String, String, String> stream = redisTemplate.opsForStream();
+        Map<String, String> a = new HashMap<String, String>(2) {{
+            put("SNO", username);
+            put("topic", topic);
+            put("a", msgRaw);
+        }};
+        stream.add("x:topic:all", a);
     }
 
     private String parseMsg(ByteBuf payload) {
