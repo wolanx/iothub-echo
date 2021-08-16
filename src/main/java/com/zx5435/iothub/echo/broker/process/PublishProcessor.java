@@ -20,7 +20,7 @@ import java.util.Map;
 public class PublishProcessor implements IProcessor<MqttPublishMessage> {
 
     @Resource
-    StringRedisTemplate redisTemplate;
+    StringRedisTemplate stringRedisTemplate;
 
     @Override
     public void process(ChannelHandlerContext ctx, MqttPublishMessage msg) {
@@ -39,7 +39,7 @@ public class PublishProcessor implements IProcessor<MqttPublishMessage> {
         // AT_LEAST_ONCE MqttPubAckMessage variableHeader().packetId()
         // EXACTLY_ONCE when pubRel send PubRec variableHeader().packetId()
 
-        StreamOperations<String, String, String> stream = redisTemplate.opsForStream();
+        StreamOperations<String, String, String> stream = stringRedisTemplate.opsForStream();
         Map<String, String> a = new HashMap<String, String>(2) {{
             put("SNO", username);
             put("topic", topic);
