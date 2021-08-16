@@ -5,7 +5,7 @@ spring:
     name: iothub-echo
   datasource:
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:${user.home}/.iot-echo/db.sqlite3
+    url: jdbc:sqlite:${user.home}/iothub-echo.db
     username: root
     password: root
   jpa:

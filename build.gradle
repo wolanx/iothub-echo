@@ -18,17 +18,17 @@ repositories {
 
 jib {
     from {
-        image = 'openjdk:8u292-slim'
+        image = 'openjdk:8u302-jre'
     }
     to {
         image = 'zx5435/iothub-echo'
         tags = [version.toString()]
     }
     container {
-        mainClass = 'com.zx5435.iothub.echo.IotHubServer'
+        mainClass = 'com.zx5435.iothub.echo.IotHubApplication'
         jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
         //        args = ['some', 'args']
-        ports = ['1883']
+        ports = ['1883', '8080']
         format = 'OCI'
         creationTime = 'USE_CURRENT_TIMESTAMP'
     }
