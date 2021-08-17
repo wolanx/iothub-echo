@@ -45,7 +45,7 @@ public class PublishProcessor implements IProcessor<MqttPublishMessage> {
             put("topic", topic);
             put("a", msgRaw);
         }};
-        stream.add("x:topic:all", a);
+        stream.add("x:topic:all", a); // todo maxlen
     }
 
     private String parseMsg(ByteBuf payload) {

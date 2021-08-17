@@ -9,6 +9,7 @@ services:
 #      - ./xxx:/xxx
     environment:
       - TZ=utc-8
+      - REDIS_HOST=svc-redis
     networks:
       - mynet
   svc-redis:
