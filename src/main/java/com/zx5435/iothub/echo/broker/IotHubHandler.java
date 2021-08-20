@@ -61,4 +61,12 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
         }
     }
 
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
+        if (ctx.channel().isActive()) {
+            ctx.close();
+        }
+    }
+
 }
