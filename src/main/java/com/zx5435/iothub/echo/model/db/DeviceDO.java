@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author zx5435
@@ -30,5 +31,7 @@ public class DeviceDO implements Serializable {
     private String deviceName;
 
     private String deviceSecret;
+
+    private Date lastOnlineTs;
 
 }

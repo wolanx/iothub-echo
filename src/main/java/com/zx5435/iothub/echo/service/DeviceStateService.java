@@ -1,5 +1,6 @@
 package com.zx5435.iothub.echo.service;
 
+import com.zx5435.iothub.echo.model.dao.DeviceDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -14,6 +15,9 @@ import java.time.Duration;
 @Slf4j
 @Service
 public class DeviceStateService {
+
+    @Resource
+    DeviceDAO deviceDAO;
 
     @Resource
     StringRedisTemplate stringRedisTemplate;
