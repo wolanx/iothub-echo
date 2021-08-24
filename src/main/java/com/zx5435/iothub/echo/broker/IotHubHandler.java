@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author zx5435
@@ -20,6 +22,9 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
 
     @Resource
     ConnectProcessor connectProcessor;
+
+    @Resource
+    DisconnectProcessor disconnectProcessor;
 
     @Resource
     PublishProcessor publishProcessor;
@@ -39,7 +44,7 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
                 }
                 break;
             case DISCONNECT:
-                DisconnectProcessor.INSTANCE.process(ctx, msg);
+                disconnectProcessor.process(ctx, msg);
                 break;
             case PINGREQ:
                 PingReqProcessor.INSTANCE.process(ctx, msg);
@@ -63,10 +68,14 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        log.info("exceptionCaught");
         super.exceptionCaught(ctx, cause);
-        if (ctx.channel().isActive()) {
-            ctx.close();
-        }
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        super.channelInactive(ctx);
+        ctx.close();
     }
 
 }

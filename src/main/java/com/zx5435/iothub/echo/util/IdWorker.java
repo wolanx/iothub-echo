@@ -31,7 +31,6 @@ public class IdWorker {
 
     private final int workerId;
     private final int datacenterId;
-    private final int seqId;
 
     public static void main(String[] args) {
         IdWorker idWorker = new IdWorker(66, 123);
@@ -44,15 +43,16 @@ public class IdWorker {
     public IdWorker(int datacenterId, int workerId) {
         this.datacenterId = datacenterId;
         this.workerId = workerId;
-        this.seqId = 435235;
     }
 
-    public synchronized long nextId() {
+    public static synchronized long nextId() {
+        IdWorker idWorker = new IdWorker(66, 123);
         long ms = System.currentTimeMillis();
-        return encode(ms);
+        return idWorker.encode(ms);
     }
 
     private long encode(long ms) {
+        int seqId = 435235;
         return ((ms - TIME) << P_ABC)
                 | (datacenterId % SA_MAX << P_BC)
                 | (workerId % SB_MAX << P_C)

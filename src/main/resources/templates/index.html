@@ -16,11 +16,14 @@
             <td th:text="${device.id}">Id</td>
             <td th:text="${device.deviceName}">备注名称</td>
             <td th:text="${device.productKey}">所属产品</td>
-            <td th:text="${device.id}">状态</td>
-            <td th:text="${device.id}">最后上线时间</td>
             <td>
-                <a class="btn btn-sm btn-primary" th:href="'/device/' + ${device.id}">查看</a>
-                <button class="btn btn-sm btn-light">删除</button>
+                <span th:if="${device.isOnline} == true" class="badge badge-success">Online</span>
+                <span th:unless="${device.isOnline} == true" class="badge badge-secondary">Offline</span>
+            </td>
+            <td th:text="${device.isOnline}">-</td>
+            <td>
+                <a class="btn btn-sm btn-primary" th:href="'/device/' + ${device.id}">View</a>
+                <button class="btn btn-sm btn-light js-device-delete" th:data-id="${device.id}">Delete</button>
             </td>
         </tr>
     </table>

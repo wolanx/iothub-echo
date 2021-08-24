@@ -2,6 +2,7 @@ package com.zx5435.iothub.echo.broker.process;
 
 import com.zx5435.iothub.echo.model.dao.DeviceDAO;
 import com.zx5435.iothub.echo.model.db.DeviceDO;
+import com.zx5435.iothub.echo.service.DeviceStateService;
 import com.zx5435.iothub.echo.util.ChanUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -21,6 +22,9 @@ public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
     @Resource
     DeviceDAO deviceDAO;
 
+    @Resource
+    DeviceStateService deviceStateService;
+
     @Override
     public void process(ChannelHandlerContext ctx, MqttConnectMessage msg) {
         Channel channel = ctx.channel();
@@ -33,11 +37,13 @@ public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
             return;
         }
 
-        ChanUtil.setClientId(channel, "asd");
+        ChanUtil.setClientId(channel, msg.payload().clientIdentifier());
         ChanUtil.setUsername(channel, username);
 
         boolean cleanSession = msg.variableHeader().isCleanSession();
         channel.writeAndFlush(genOk(!cleanSession));
+
+        deviceStateService.markOnline(username);
     }
 
     public void processOther(ChannelHandlerContext ctx, MqttMessage msg) {

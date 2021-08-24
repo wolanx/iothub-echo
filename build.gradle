@@ -50,10 +50,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
-    // sqlite
-    implementation 'org.xerial:sqlite-jdbc:3.21.0.1'
+    // db
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.1'
+    implementation "com.github.gwenn:sqlite-dialect:0.1.2"
     implementation "redis.clients:jedis:3.6.0"
-//    implementation 'org.redisson:redisson:3.16.1'
+    //implementation 'org.redisson:redisson:3.16.1'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'

@@ -10,7 +10,8 @@ spring:
     password: root
   jpa:
     show-sql: true
-    database-platform: com.zx5435.iothub.echo.util.SqliteDialect
+    #database-platform: com.zx5435.iothub.echo.util.SqliteDialect
+    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect
     hibernate:
       ddl-auto: update
   redis:
@@ -19,3 +20,6 @@ spring:
     database: 0
   thymeleaf:
     cache: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
