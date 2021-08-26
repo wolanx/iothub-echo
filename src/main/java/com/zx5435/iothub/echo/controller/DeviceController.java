@@ -6,6 +6,7 @@ import com.zx5435.iothub.echo.model.vo.DeviceVO;
 import com.zx5435.iothub.echo.util.IdWorker;
 import com.zx5435.jii.web.ApiData;
 import com.zx5435.jii.web.ApiException;
+import com.zx5435.jii.web.WebException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ public class DeviceController {
 
     @GetMapping("/device/{id}")
     public String info(Model model, @PathVariable long id) {
-        DeviceDO deviceDO = deviceDAO.findById(id).orElseThrow(ApiException::a404);
+        DeviceDO deviceDO = deviceDAO.findById(id).orElseThrow(WebException::a404);
         DeviceVO deviceVO = new DeviceVO();
         BeanUtils.copyProperties(deviceDO, deviceVO);
 
