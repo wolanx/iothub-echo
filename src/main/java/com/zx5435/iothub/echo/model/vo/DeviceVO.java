@@ -2,6 +2,8 @@ package com.zx5435.iothub.echo.model.vo;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author zx5435
  */
@@ -17,6 +19,10 @@ public class DeviceVO {
     private String deviceName;
 
     private String deviceSecret;
+
+    private Date lastOnlineTs;
+
+    // other
 
     private Boolean isOnline;
 

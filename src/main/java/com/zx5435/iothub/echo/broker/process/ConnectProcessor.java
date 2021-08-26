@@ -7,15 +7,16 @@ import com.zx5435.iothub.echo.util.ChanUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 /**
  * @author zx5435
  * a1p9xMXq5Nd1.iot-as-mqtt.cn-shanghai.aliyuncs.com
  */
+@Slf4j
 @Component
 public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
 
@@ -72,16 +73,19 @@ public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
         String password = new String(passwordByte);
         System.out.println("username = " + username);
         System.out.println("password = " + password);
-        if ("test".equals(username) && "test".equals(password)) {
-            return true;
-        }
-        Optional<DeviceDO> device = deviceDAO.findByDeviceNameAndProductKey("iot-echo-903-913332", "a1p9xMXq5Nd");
 
-        if (device.isPresent()) {
-            System.out.println("device = " + device);
-            return true;
+        String[] uArr = username.split("&");
+        DeviceDO device = deviceDAO.findByDeviceNameAndProductKey(uArr[0], uArr[1]).orElse(null);
+
+        if (device == null) {
+            return false;
         }
-        return false;
+        if (password.equals(device.getDeviceSecret())) {
+            log.info("secret right");
+        } else {
+            log.error("secret error");
+        }
+        return true;
     }
 
 }

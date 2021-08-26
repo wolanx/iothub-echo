@@ -5,8 +5,8 @@ services:
     ports:
       - 1883:1883
       - 21883:8080
-#    volumes:
-#      - ./xxx:/xxx
+    volumes:
+      - .:/root
     environment:
       - TZ=utc-8
       - REDIS_HOST=svc-redis

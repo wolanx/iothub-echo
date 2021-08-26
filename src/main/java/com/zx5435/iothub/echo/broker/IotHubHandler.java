@@ -25,6 +25,9 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
     DisconnectProcessor disconnectProcessor;
 
     @Resource
+    PingReqProcessor pingReqProcessor;
+
+    @Resource
     PublishProcessor publishProcessor;
 
     @Override
@@ -45,7 +48,7 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
                 disconnectProcessor.process(ctx, msg);
                 break;
             case PINGREQ:
-                PingReqProcessor.INSTANCE.process(ctx, msg);
+                pingReqProcessor.process(ctx, msg);
                 break;
             case SUBSCRIBE:
                 SubscribeProcessor.INSTANCE.process(ctx, (MqttSubscribeMessage) msg);

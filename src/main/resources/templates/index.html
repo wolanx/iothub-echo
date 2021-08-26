@@ -3,24 +3,24 @@
       layout:decorate="~{layout/main}">
 
 <main layout:fragment="content" class="tf-wrap">
-    <table class="table">
+    <table class="table table-bordered">
         <tr>
-            <td>Id</td>
-            <td>备注名称</td>
-            <td>所属产品</td>
-            <td>状态</td>
-            <td>最后上线时间</td>
-            <td>操作</td>
+            <th>Id</th>
+            <th>备注名称</th>
+            <th>所属产品</th>
+            <th>状态</th>
+            <th>最后上线时间</th>
+            <th>操作</th>
         </tr>
         <tr th:each="device : ${devices}">
             <td th:text="${device.id}">Id</td>
-            <td th:text="${device.deviceName}">备注名称</td>
-            <td th:text="${device.productKey}">所属产品</td>
+            <td th:text="${device.deviceName}">设备名称</td>
+            <td th:text="${device.productKey}">产品类别</td>
             <td>
                 <span th:if="${device.isOnline} == true" class="badge bg-success">Online</span>
                 <span th:unless="${device.isOnline} == true" class="badge bg-secondary">Offline</span>
             </td>
-            <td th:text="${device.isOnline}">-</td>
+            <td th:text="${device.lastOnlineTs}">-</td>
             <td>
                 <a class="btn btn-sm btn-primary" th:href="'/device/' + ${device.id}">View</a>
                 <button class="btn btn-sm btn-light js-device-delete" th:data-id="${device.id}">Delete</button>
