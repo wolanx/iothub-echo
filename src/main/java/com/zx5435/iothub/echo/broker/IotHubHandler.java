@@ -9,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @author zx5435
@@ -68,8 +66,8 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.info("exceptionCaught");
-        super.exceptionCaught(ctx, cause);
+        log.info("exceptionCaught: " + cause.getMessage());
+        //super.exceptionCaught(ctx, cause);
     }
 
     @Override

@@ -1,4 +1,4 @@
-export class Request {
+export class RequestUtil {
 
     static post(url, p) {
         return fetch(url, {
@@ -8,7 +8,14 @@ export class Request {
             },
             "credentials": "include",
             "body": JSON.stringify(p)
-        }).then(res => res.json())
+        }).then(resp => {
+            const json = resp.json()
+            if (resp.status >= 200 && resp.status < 300) {
+                return json
+            } else {
+                return json.then(err => { throw err })
+            }
+        })
     }
 
     static delete(url) {
@@ -18,7 +25,14 @@ export class Request {
                 "content-type": "application/json;charset=UTF-8"
             },
             "credentials": "include",
-        }).then(res => res.json())
+        }).then(resp => {
+            const json = resp.json()
+            if (resp.status >= 200 && resp.status < 300) {
+                return json
+            } else {
+                return json.then(err => { throw err })
+            }
+        })
     }
 
 }

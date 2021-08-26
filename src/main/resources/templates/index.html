@@ -17,8 +17,8 @@
             <td th:text="${device.deviceName}">备注名称</td>
             <td th:text="${device.productKey}">所属产品</td>
             <td>
-                <span th:if="${device.isOnline} == true" class="badge badge-success">Online</span>
-                <span th:unless="${device.isOnline} == true" class="badge badge-secondary">Offline</span>
+                <span th:if="${device.isOnline} == true" class="badge bg-success">Online</span>
+                <span th:unless="${device.isOnline} == true" class="badge bg-secondary">Offline</span>
             </td>
             <td th:text="${device.isOnline}">-</td>
             <td>
