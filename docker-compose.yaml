@@ -4,12 +4,13 @@ services:
     image: zx5435/iothub-echo:0.1.0
     ports:
       - 1883:1883
-      - 21883:8080
+      - 18830:8080
     volumes:
       - .:/root
     environment:
       - TZ=utc-8
       - REDIS_HOST=svc-redis
+      - INFLUXDB_HOST=svc-influxdb
     networks:
       - mynet
   svc-redis:
@@ -22,6 +23,13 @@ services:
     image: influxdb:1.7.11
     ports:
       - 8086:8086
+    environment:
+      - TZ=utc-8
+      - INFLUXDB_ADMIN_USER=root
+      - INFLUXDB_ADMIN_PASSWORD=root
+      - INFLUXDB_DB=iothub
+      - INFLUXDB_HTTP_ENABLED=true
+      - INFLUXDB_HTTP_AUTH_ENABLED=true
     networks:
       - mynet
 networks:

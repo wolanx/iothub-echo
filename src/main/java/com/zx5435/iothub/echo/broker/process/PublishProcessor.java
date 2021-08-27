@@ -1,5 +1,6 @@
 package com.zx5435.iothub.echo.broker.process;
 
+import com.zx5435.iothub.echo.manager.InfluxdbManager;
 import com.zx5435.iothub.echo.util.ChanUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -21,6 +22,9 @@ public class PublishProcessor implements IProcessor<MqttPublishMessage> {
 
     @Resource
     StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    InfluxdbManager influxdbManager;
 
     @Override
     public void process(ChannelHandlerContext ctx, MqttPublishMessage msg) {
@@ -46,6 +50,8 @@ public class PublishProcessor implements IProcessor<MqttPublishMessage> {
             put("a", msgRaw);
         }};
         stream.add("x:topic:all", a); // todo maxlen
+
+        influxdbManager.write(username);
     }
 
     private String parseMsg(ByteBuf payload) {

@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
  */
 @Slf4j
 @ControllerAdvice
-public class MyError {
+public class ErrorConfig {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -55,6 +55,7 @@ dependencies {
     implementation "com.github.gwenn:sqlite-dialect:0.1.2"
     implementation "redis.clients:jedis:3.6.0"
     //implementation 'org.redisson:redisson:3.16.1'
+    implementation "org.influxdb:influxdb-java:2.20"
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'

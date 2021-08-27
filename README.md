@@ -1,6 +1,6 @@
 # iothub-echo
 
-> aliyun iothub 本地化部署
+> `mqtt服务端` 实现，类似 `aliyun iothub` 本地化部署
 
 项目 | 地址 | 描述
 ----|-----|-----
@@ -13,15 +13,16 @@ iothub-echo | [github.com/zx5435/iothub-echo](https://github.com/zx5435/iothub-e
 
 - `mqtt:1883` server broker
 - `web:8080` 设备管理，状态监控
-- `db` sqlite，文件级存储，默认不引入外部组件如：mysql
-- `mq` 轻量级 x-stream in redis
-- `redis` last 状态缓存
-- `tsdb` 可选，默认disable，写入 influxdb
+- `db` 默认sqlite，文件级存储。可选mysql
+- `redis`
+  - `cache` last 状态缓存
+  - `mq` 轻量级 x-stream in redis
+- `tsdb:influxdb` 默认disable
 
 ## Deploy
 
 ```shell
-# mode 1 docker
+# 方式 1 docker
 # todo
 docker run --restart=unless-stopped --name iothub -d -p 1883:1883 zx5435/iothub-echo:0.1.0
 
@@ -33,12 +34,14 @@ docker-compose up -d
 # todo
 ```
 
-## Flow
+## Flow Rules
 
-Iot device -> Mqtt broker -> Rules
+Iot device -> Mqtt broker -> Rules by topic
 
-Rules
-
-- cache last
-- into mq
-- into ts db
+- 默认 `/{pk}/{deviceName}/user/get`
+  - mq topic
+    - `x:topic:all`
+  - tsdb tag
+    - `SNO = {deviceName}`
+- 自定义
+  - `TODO`
