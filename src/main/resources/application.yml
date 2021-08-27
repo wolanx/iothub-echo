@@ -24,7 +24,7 @@ spring:
   thymeleaf:
     cache: false
   influx:
-    url: http://${REDIS_HOST:localhost}:8086
+    url: http://${INFLUXDB_HOST:localhost}:8086
     database: iothub
     user: root
     password: root
