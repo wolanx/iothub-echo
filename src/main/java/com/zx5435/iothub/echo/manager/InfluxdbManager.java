@@ -36,7 +36,7 @@ public class InfluxdbManager {
         influxdb.write(point);
     }
 
-    public List<Object> read(String sql) {
+    public List<Object> queryBySql(String sql) {
         List<Object> ret = new ArrayList<>();
         QueryResult queryResult = influxdb.query(new Query(sql));
         queryResult.getResults().forEach(result -> {

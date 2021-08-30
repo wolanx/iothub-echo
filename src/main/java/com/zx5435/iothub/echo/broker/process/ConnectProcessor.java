@@ -1,5 +1,6 @@
 package com.zx5435.iothub.echo.broker.process;
 
+import com.zx5435.iothub.echo.model.biz.DeviceTuple2;
 import com.zx5435.iothub.echo.model.dao.DeviceDAO;
 import com.zx5435.iothub.echo.model.db.DeviceDO;
 import com.zx5435.iothub.echo.service.DeviceStateService;
@@ -74,8 +75,8 @@ public class ConnectProcessor implements IProcessor<MqttConnectMessage> {
         System.out.println("username = " + username);
         System.out.println("password = " + password);
 
-        String[] uArr = username.split("&");
-        DeviceDO device = deviceDAO.findByDeviceNameAndProductKey(uArr[0], uArr[1]).orElse(null);
+        DeviceTuple2 d2 = DeviceTuple2.of(username);
+        DeviceDO device = deviceDAO.findByDeviceNameAndProductKey(d2.getName(), d2.getPk()).orElse(null);
 
         if (device == null) {
             return false;

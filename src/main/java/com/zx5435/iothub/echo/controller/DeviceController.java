@@ -5,7 +5,6 @@ import com.zx5435.iothub.echo.model.db.DeviceDO;
 import com.zx5435.iothub.echo.model.vo.DeviceVO;
 import com.zx5435.iothub.echo.util.IdWorker;
 import com.zx5435.jii.web.ApiData;
-import com.zx5435.jii.web.ApiException;
 import com.zx5435.jii.web.WebException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;

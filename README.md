@@ -38,7 +38,7 @@ docker-compose up -d
 
 Iot device -> Mqtt broker -> Rules by topic
 
-- 默认 `/{pk}/{deviceName}/user/get`
+- 默认 `/{pk}/{deviceName}/user/update`
   - mq topic
     - `x:topic:all`
   - tsdb tag

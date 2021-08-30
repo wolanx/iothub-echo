@@ -21,7 +21,7 @@ public class TsdbController {
 
     @GetMapping("/api/tsdb/r")
     public ApiData read() {
-        List<Object> arr = influxdbManager.read("SELECT * FROM sensor");
+        List<Object> arr = influxdbManager.queryBySql("SELECT * FROM sensor where sn='iot-echo-903-913332' order by time desc limit 3 tz('Asia/Shanghai')");
         return ApiData.success(arr);
     }
 

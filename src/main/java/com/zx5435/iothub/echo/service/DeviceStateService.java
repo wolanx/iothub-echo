@@ -1,5 +1,6 @@
 package com.zx5435.iothub.echo.service;
 
+import com.zx5435.iothub.echo.model.biz.DeviceTuple2;
 import com.zx5435.iothub.echo.model.dao.DeviceDAO;
 import com.zx5435.iothub.echo.model.db.DeviceDO;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +34,8 @@ public class DeviceStateService {
         ValueOperations<String, String> r = stringRedisTemplate.opsForValue();
         r.set("device:online:" + username, String.valueOf(System.currentTimeMillis()), Duration.ofSeconds(300));
 
-        String[] uArr = username.split("&");
-        DeviceDO device = deviceDAO.findByDeviceNameAndProductKey(uArr[0], uArr[1]).orElse(null);
+        DeviceTuple2 d2 = DeviceTuple2.of(username);
+        DeviceDO device = deviceDAO.findByDeviceNameAndProductKey(d2.getName(), d2.getPk()).orElse(null);
         if (device != null) {
             device.setLastOnlineTs(new Date());
             deviceDAO.save(device);
