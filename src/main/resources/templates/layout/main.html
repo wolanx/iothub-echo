@@ -6,8 +6,8 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- css -->
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@7.0.0/normalize.css">
-    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
     <!-- js -->
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.slim.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.15.3/babel.min.js"></script>
@@ -20,13 +20,17 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
     <div class="container">
         <a class="navbar-brand" href="/">Iothub-echo</a>
-        <div class="collapse navbar-collapse" style="justify-content: flex-end;">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav" style="margin-right: auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
                     <a class="nav-link active" href="/">Home</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/">Devices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>

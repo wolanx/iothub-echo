@@ -13,7 +13,9 @@ export class RequestUtil {
             if (resp.status >= 200 && resp.status < 300) {
                 return json
             } else {
-                return json.then(err => { throw err })
+                return json.then(err => {
+                    throw err
+                })
             }
         })
     }
@@ -30,7 +32,9 @@ export class RequestUtil {
             if (resp.status >= 200 && resp.status < 300) {
                 return json
             } else {
-                return json.then(err => { throw err })
+                return json.then(err => {
+                    throw err
+                })
             }
         })
     }

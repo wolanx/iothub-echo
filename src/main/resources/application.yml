@@ -3,26 +3,29 @@ server:
 spring:
   application:
     name: iothub-echo
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  security:
+    user:
+      name: admin
+      password: admin
+  thymeleaf:
+    cache: false
   datasource:
     driver-class-name: org.sqlite.JDBC
     url: jdbc:sqlite:${user.home}/iothub-echo.db
     username: root
     password: root
   jpa:
-    show-sql: true
-    #database-platform: com.zx5435.iothub.echo.util.SqliteDialect
-    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect
+    #    show-sql: true
+    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect #com.zx5435.echo.iothub.util.SqliteDialect
     hibernate:
       ddl-auto: update
   redis:
     host: ${REDIS_HOST:localhost}
     port: 6379
     database: 0
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
-  thymeleaf:
-    cache: false
   influx:
     url: http://${INFLUXDB_HOST:localhost}:8086
     database: iothub

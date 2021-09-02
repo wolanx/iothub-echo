@@ -1,4 +1,4 @@
-import com.zx5435.iothub.echo.IotHubApplication;
+import com.zx5435.echo.iothub.IotHubApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StreamOperations;

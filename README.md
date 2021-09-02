@@ -12,7 +12,7 @@ iothub-echo | [github.com/zx5435/iothub-echo](https://github.com/zx5435/iothub-e
 只依赖redis，部署出iot服务端。同时兼容aliyun iot设备，在私有化场景，替换iothub的作用。
 
 - `mqtt:1883` server broker
-- `web:8080` 设备管理，状态监控
+- `web:8080` 设备管理，状态监控，默认账号密码 `admin:admin`
 - `db` 默认sqlite，文件级存储。可选mysql
 - `redis`
   - `cache` last 状态缓存

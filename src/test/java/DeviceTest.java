@@ -1,6 +1,6 @@
-import com.zx5435.iothub.echo.IotHubApplication;
-import com.zx5435.iothub.echo.model.dao.DeviceDAO;
-import com.zx5435.iothub.echo.model.db.DeviceDO;
+import com.zx5435.echo.iothub.IotHubApplication;
+import com.zx5435.echo.iothub.model.dao.DeviceDAO;
+import com.zx5435.echo.iothub.model.db.DeviceDO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

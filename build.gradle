@@ -25,7 +25,7 @@ jib {
         tags = [version.toString()]
     }
     container {
-        mainClass = 'com.zx5435.iothub.echo.IotHubApplication'
+        mainClass = 'com.zx5435.echo.iothub.IotHubApplication'
         jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
         //        args = ['some', 'args']
         ports = ['1883', '8080']
@@ -45,6 +45,7 @@ dependencies {
 
     // spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
