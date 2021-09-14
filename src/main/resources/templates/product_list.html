@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head>
+    <title>Products</title>
+</head>
+
+<main layout:fragment="content" class="th-content">
+    <table class="table table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Product key</th>
+            <th>Product name</th>
+            <th></th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}">id</td>
+            <td th:text="${product.productKey}">key</td>
+            <td th:text="${product.productName}">name</td>
+            <td>
+                <button class="btn btn-sm btn-light js-device-delete" th:data-id="${product.id}">Delete</button>
+            </td>
+        </tr>
+    </table>
+
+    <div id="root"></div>
+    <script type="text/babel" data-type="module" src="/js/product_list.js"></script>
+</main>
+
+</html>

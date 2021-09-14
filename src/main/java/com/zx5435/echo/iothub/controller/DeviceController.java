@@ -1,6 +1,7 @@
 package com.zx5435.echo.iothub.controller;
 
 import com.zx5435.echo.iothub.model.dao.DeviceDAO;
+import com.zx5435.echo.iothub.model.dao.ProductDAO;
 import com.zx5435.echo.iothub.model.db.DeviceDO;
 import com.zx5435.echo.iothub.model.vo.DeviceVO;
 import com.zx5435.echo.iothub.util.IdWorker;
@@ -21,6 +22,9 @@ public class DeviceController {
 
     @Resource
     DeviceDAO deviceDAO;
+
+    @Resource
+    ProductDAO productDAO;
 
     @GetMapping("/device/{id}")
     public String info(Model model, @PathVariable long id) {

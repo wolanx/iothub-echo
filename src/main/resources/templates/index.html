@@ -6,16 +6,18 @@
     <table class="table table-bordered">
         <tr>
             <th>Id</th>
-            <th>备注名称</th>
-            <th>所属产品</th>
-            <th>状态</th>
-            <th>最后上线时间</th>
-            <th>操作</th>
+            <th>Product name</th>
+            <th>Device name</th>
+            <th>Device type</th>
+            <th>Status</th>
+            <th>Last Online</th>
+            <th></th>
         </tr>
         <tr th:each="device : ${devices}">
-            <td th:text="${device.id}">Id</td>
-            <td th:text="${device.deviceName}">设备名称</td>
+            <td th:text="${device.id}">id</td>
             <td th:text="${device.productKey}">产品类别</td>
+            <td th:text="${device.deviceName}">设备名称</td>
+            <td th:text="${device.type}">设备类别</td>
             <td>
                 <span th:if="${device.isOnline} == true" class="badge bg-success">Online</span>
                 <span th:unless="${device.isOnline} == true" class="badge bg-secondary">Offline</span>
@@ -29,7 +31,7 @@
     </table>
 
     <div id="root"></div>
-    <script type="text/babel" data-type="module" src="/js/index.js"></script>
+    <script type="text/babel" data-type="module" src="/js/device_list.js"></script>
 </main>
 
 </html>

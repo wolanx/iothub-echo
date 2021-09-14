@@ -1,6 +1,6 @@
 import {RequestUtil} from '/js/util.js'
 
-const {useState} = React
+const {useState, useEffect} = React
 const {Button, Modal, Form} = ReactBootstrap
 
 $('.js-device-delete').click(function () {
@@ -20,6 +20,15 @@ function App() {
     const [productKey, setProductKey] = useState()
     const [deviceName, setDeviceName] = useState()
     const [deviceSecret, setDeviceSecret] = useState()
+    const [products, setProducts] = useState([])
+
+    useEffect(() => {
+        RequestUtil.get("/api/products").then(({data: res}) => {
+            setProducts(res)
+        }, err => {
+            alert(err.message)
+        })
+    }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -50,22 +59,25 @@ function App() {
                         <Modal.Body>
                             <Form.Group className="mb-3">
                                 <Form.Label>Product Key</Form.Label>
-                                <Form.Control size="sm" type="text" required value={productKey}
-                                              onChange={({target: {value}}) => setProductKey(value)}/>
-                                <Form.Control.Feedback type="invalid">Please choose a username.</Form.Control.Feedback>
+                                <Form.Select value={productKey} onChange={({target: {value}}) => setProductKey(value)}>
+                                    {products.map(v => (
+                                            <option value={v.productKey}>{v.productName} ({v.productKey})</option>
+                                    ))}
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">Please check.</Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Device Name</Form.Label>
                                 <Form.Control size="sm" type="text" required value={deviceName}
                                               onChange={({target: {value}}) => setDeviceName(value)}/>
-                                <Form.Control.Feedback type="invalid">Please choose a username.</Form.Control.Feedback>
-                                {/* <Form.Text>We'll never share your email with anyone else.</Form.Text> */}
+                                <Form.Control.Feedback type="invalid">Please check.</Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group controlId="validationCustom05">
                                 <Form.Label>Device Secret</Form.Label>
                                 <Form.Control size="sm" type="text" required value={deviceSecret}
                                               onChange={({target: {value}}) => setDeviceSecret(value)}/>
-                                <Form.Control.Feedback type="invalid">Please choose a username.</Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">Please check.</Form.Control.Feedback>
+                                <Form.Text>You can...</Form.Text>
                             </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>

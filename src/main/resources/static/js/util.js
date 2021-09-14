@@ -1,5 +1,18 @@
 export class RequestUtil {
 
+    static get(url, p = {}) {
+        return fetch(url).then(resp => {
+            const json = resp.json()
+            if (resp.status >= 200 && resp.status < 300) {
+                return json
+            } else {
+                return json.then(err => {
+                    throw err
+                })
+            }
+        })
+    }
+
     static post(url, p) {
         return fetch(url, {
             "method": "post",
