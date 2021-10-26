@@ -19,6 +19,7 @@ iothub-echo | [github.com/zx5435/iothub-echo](https://github.com/zx5435/iothub-e
   - `mq` 轻量级 x-stream in redis
 - `tsdb:influxdb` 默认disable
 
+
 ## Deploy
 
 ```shell
@@ -33,6 +34,14 @@ docker-compose up -d
 # 方式 3 k8s
 # todo
 ```
+
+
+## Todo
+
+- [ ] rrpc
+- [ ] tls
+- [ ] quarkus
+
 
 ## Flow Rules
 
