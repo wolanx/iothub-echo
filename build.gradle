@@ -1,68 +1,87 @@
 plugins {
     id 'java'
-    id 'com.google.cloud.tools.jib' version '2.6.0'
-    id 'org.springframework.boot' version '2.4.3'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'io.quarkus'
+//    id 'com.google.cloud.tools.jib' version '2.6.0'
+//    id 'org.springframework.boot' version '2.4.3'
+//    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group = 'com.zx5435'
 version = '0.1.0'
-sourceCompatibility = '1.8'
-compileJava.options.encoding = 'UTF-8'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
 
 repositories {
-    mavenLocal()
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
     mavenCentral()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    mavenLocal()
 }
 
-jib {
-    from {
-        image = 'openjdk:8u302-jre'
-    }
-    to {
-        image = 'zx5435/iothub-echo'
-        tags = [version.toString()]
-    }
-    container {
-        mainClass = 'com.zx5435.echo.iothub.IotHubApplication'
-        jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
-        //        args = ['some', 'args']
-        ports = ['1883', '8080']
-        format = 'OCI'
-        creationTime = 'USE_CURRENT_TIMESTAMP'
-    }
-}
+//jib {
+//    from {
+//        image = 'openjdk:8u302-jre'
+//    }
+//    to {
+//        image = 'zx5435/iothub-echo'
+//        tags = [version.toString()]
+//    }
+//    container {
+//        mainClass = 'com.zx5435.echo.iothub.IotHubApplication'
+//        jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
+//        //        args = ['some', 'args']
+//        ports = ['1883', '8080']
+//        format = 'OCI'
+//        creationTime = 'USE_CURRENT_TIMESTAMP'
+//    }
+//}
 
 dependencies {
-    // mqtt
-    implementation 'io.netty:netty-all:4.1.66.Final'
-    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
-
-    // dev
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    // spring
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-
-    // db
-    implementation 'org.xerial:sqlite-jdbc:3.36.0.1'
-    implementation "com.github.gwenn:sqlite-dialect:0.1.2"
-    implementation "redis.clients:jedis:3.6.0"
-    //implementation 'org.redisson:redisson:3.16.1'
-    implementation "org.influxdb:influxdb-java:2.20"
-
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-config-yaml'
+    implementation 'io.quarkus:quarkus-resteasy'
+    implementation 'io.quarkus:quarkus-arc'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+//    // mqtt
+//    implementation 'io.netty:netty-all:4.1.66.Final'
+//    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+//
+//    // dev
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//
+//    // spring
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+//
+//    // db
+//    implementation 'org.xerial:sqlite-jdbc:3.36.0.1'
+//    implementation "com.github.gwenn:sqlite-dialect:0.1.2"
+//    implementation "redis.clients:jedis:3.6.0"
+//    //implementation 'org.redisson:redisson:3.16.1'
+//    implementation "org.influxdb:influxdb-java:2.20"
+//
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}
