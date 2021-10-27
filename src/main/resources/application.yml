@@ -1,27 +1,26 @@
 server:
   port: 8080
 spring:
+quarkus:
   application:
     name: iothub-echo
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  security:
-    user:
-      name: admin
-      password: admin
-  thymeleaf:
-    cache: false
   datasource:
-    driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:${user.home}/iothub-echo.db
+    db-kind: other
+    jdbc:
+      driver: org.sqlite.JDBC
+      url: jdbc:sqlite:${user.home}/iothub-echo.db
     username: root
     password: root
-  jpa:
+  hibernate-orm:
+    dialect: org.sqlite.hibernate.dialect.SQLiteDialect
+    physical-naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    implicit-naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     #    show-sql: true
-    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect #com.zx5435.echo.iothub.util.SqliteDialect
-    hibernate:
-      ddl-auto: update
+#    hibernate:
+#      ddl-auto: update
   redis:
     host: ${REDIS_HOST:localhost}
     port: 6379
@@ -31,3 +30,9 @@ spring:
     database: iothub
     user: root
     password: root
+  security:
+    user:
+      name: admin
+      password: admin
+  thymeleaf:
+    cache: false

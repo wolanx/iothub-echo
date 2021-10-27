@@ -1,4 +1,4 @@
-package com.zx5435.echo.iothub.controller;
+package com.zx5435;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,4 +20,5 @@ public class TestController {
     public String index() {
         return "Hello qweqweqweqwe";
     }
+
 }

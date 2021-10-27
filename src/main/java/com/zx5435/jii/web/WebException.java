@@ -1,12 +1,12 @@
 package com.zx5435.jii.web;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * @author zx5435
  */
-@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+//@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class WebException extends RuntimeException {
 
     private static final long serialVersionUID = -4100309035717531908L;
