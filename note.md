@@ -4,3 +4,8 @@ https://hub.docker.com/_/eclipse-mosquitto?tab=description&page=1&ordering=last_
 
 mqtt 协议介绍
 https://juejin.cn/post/6844903696317284359
+
+qute
+https://quarkus.io/guides/qute
+https://quarkus.io/guides/qute-reference
+

@@ -1,22 +1,22 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/main}">
+<html lang="en">
 <head>
-    <title th:text="${device.deviceName}">title</title>
+    <meta charset="utf-8">
+    <title>{device.deviceName}</title>
 </head>
 
-<main layout:fragment="content" class="th-content">
+<main class="th-content">
     <h5>Device Information</h5>
     <table class="table table-sm table-bordered">
         <tr>
             <td width="25%" class="td-bg">Device Name</td>
-            <td width="25%" th:text="${device.deviceName}">设备名称</td>
+            <td width="25%">{device.deviceName}</td>
             <td width="25%" class="td-bg">Product Key</td>
-            <td width="25%" th:text="${device.productKey}">产品类别</td>
+            <td width="25%">{device.productKey}</td>
         </tr>
         <tr>
             <td class="td-bg">Device Secret</td>
-            <td colspan="3" th:text="${device.deviceSecret}">设备密钥</td>
+            <td colspan="3">{device.deviceSecret}</td>
         </tr>
     </table>
 
@@ -26,7 +26,7 @@
             <td class="td-bg">Topic Name</td>
         </tr>
         <tr>
-            <td th:text="'/' + ${device.productKey} + '/' + ${device.deviceName} + '/user/get'">/user/get</td>
+            <td>{device.productKey}/{device.deviceName}/user/get</td>
         </tr>
     </table>
 </main>

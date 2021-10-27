@@ -18,9 +18,9 @@ quarkus:
     dialect: org.sqlite.hibernate.dialect.SQLiteDialect
     physical-naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     implicit-naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+#    scripts:
+#      generation: update
     #    show-sql: true
-#    hibernate:
-#      ddl-auto: update
   redis:
     host: ${REDIS_HOST:localhost}
     port: 6379
