@@ -1,8 +1,10 @@
 plugins {
     id 'java'
-    id 'com.google.cloud.tools.jib' version '2.6.0'
-    id 'org.springframework.boot' version '2.4.3'
+    id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+//    id 'com.google.cloud.tools.jib' version '2.6.0'
+    id 'org.springframework.experimental.aot' version '0.10.5'
+    id 'org.graalvm.buildtools.native' version '0.9.4'
 }
 
 group = 'com.zx5435'
@@ -10,29 +12,36 @@ version = '0.1.0'
 sourceCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 repositories {
     mavenLocal()
     maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    maven { url 'https://repo.spring.io/release' }
     mavenCentral()
 }
 
-jib {
-    from {
-        image = 'openjdk:8u302-jre'
-    }
-    to {
-        image = 'zx5435/iothub-echo'
-        tags = [version.toString()]
-    }
-    container {
-        mainClass = 'com.zx5435.echo.iothub.IotHubApplication'
-        jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
-        //        args = ['some', 'args']
-        ports = ['1883', '8080']
-        format = 'OCI'
-        creationTime = 'USE_CURRENT_TIMESTAMP'
-    }
-}
+//jib {
+//    from {
+//        image = 'openjdk:8u302-jre'
+//    }
+//    to {
+//        image = 'zx5435/iothub-echo'
+//        tags = [version.toString()]
+//    }
+//    container {
+//        mainClass = 'com.zx5435.echo.iothub.IotHubApplication'
+//        jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
+//        //        args = ['some', 'args']
+//        ports = ['1883', '8080']
+//        format = 'OCI'
+//        creationTime = 'USE_CURRENT_TIMESTAMP'
+//    }
+//}
 
 dependencies {
     // mqtt
@@ -65,4 +74,17 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+bootBuildImage {
+    builder = 'paketobuildpacks/builder:tiny'
+    environment = ['BP_NATIVE_IMAGE': 'true']
+}
+
+nativeBuild {
+    classpath processAotResources.outputs, compileAotJava.outputs
+}
+
+nativeTest {
+    classpath processAotTestResources.outputs, compileAotTestJava.outputs
 }
