@@ -32,13 +32,13 @@ public class IdWorker {
     private final int workerId;
     private final int datacenterId;
 
-    public static void main(String[] args) {
-        IdWorker idWorker = new IdWorker(66, 123);
-        long a = idWorker.encode(1629191974013L);
-        System.out.println("a = " + a);
-        List<Long> b = idWorker.decode(a);
-        System.out.println("b = " + b);
-    }
+//    public static void main(String[] args) {
+//        IdWorker idWorker = new IdWorker(66, 123);
+//        long a = idWorker.encode(1629191974013L);
+//        System.out.println("a = " + a);
+//        List<Long> b = idWorker.decode(a);
+//        System.out.println("b = " + b);
+//    }
 
     public IdWorker(int datacenterId, int workerId) {
         this.datacenterId = datacenterId;

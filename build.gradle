@@ -5,12 +5,24 @@ plugins {
 //    id 'com.google.cloud.tools.jib' version '2.6.0'
     id 'org.springframework.experimental.aot' version '0.10.5'
     id 'org.graalvm.buildtools.native' version '0.9.4'
+    id 'org.hibernate.orm'
 }
 
 group = 'com.zx5435'
 version = '0.1.0'
-sourceCompatibility = '1.8'
-compileJava.options.encoding = 'UTF-8'
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
 
 configurations {
     compileOnly {
@@ -20,7 +32,7 @@ configurations {
 
 repositories {
     mavenLocal()
-    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
     maven { url 'https://repo.spring.io/release' }
     mavenCentral()
 }
@@ -45,11 +57,12 @@ repositories {
 
 dependencies {
     // mqtt
-    implementation 'io.netty:netty-all:4.1.66.Final'
-    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+//    implementation 'io.netty:netty-all:4.1.66.Final'
+//    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+//    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
 
     // dev
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // spring
@@ -68,8 +81,8 @@ dependencies {
     implementation "org.influxdb:influxdb-java:2.20"
 
     // lombok
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 test {
@@ -87,4 +100,13 @@ nativeBuild {
 
 nativeTest {
     classpath processAotTestResources.outputs, compileAotTestJava.outputs
+}
+
+hibernate {
+    enhance {
+        enableLazyInitialization = true
+        enableDirtyTracking = true
+        enableAssociationManagement = true
+        enableExtendedEnhancement = false
+    }
 }
