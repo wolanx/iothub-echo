@@ -74,8 +74,9 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
     // db
-    implementation 'org.xerial:sqlite-jdbc:3.36.0.1'
-    implementation "com.github.gwenn:sqlite-dialect:0.1.2"
+    runtimeOnly 'mysql:mysql-connector-java'
+//    implementation 'org.xerial:sqlite-jdbc:3.36.0.1'
+//    implementation "com.github.gwenn:sqlite-dialect:0.1.2"
     implementation "redis.clients:jedis:3.6.0"
     //implementation 'org.redisson:redisson:3.16.1'
     implementation "org.influxdb:influxdb-java:2.20"

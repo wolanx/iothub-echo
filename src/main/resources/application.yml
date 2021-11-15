@@ -13,13 +13,15 @@ spring:
   thymeleaf:
     cache: false
   datasource:
-    driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:${user.home}/iothub-echo.db
+#    driver-class-name: org.sqlite.JDBC
+#    url: jdbc:sqlite:${user.home}/iothub-echo.db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/test?characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
   jpa:
     #    show-sql: true
-    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect #com.zx5435.echo.iothub.util.SqliteDialect
+#    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect #com.zx5435.echo.iothub.util.SqliteDialect
     hibernate:
       ddl-auto: update
   redis:
