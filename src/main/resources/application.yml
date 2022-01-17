@@ -19,7 +19,7 @@ spring:
     password: root
   jpa:
     #    show-sql: true
-    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect #com.zx5435.echo.iothub.util.SqliteDialect
+    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect
     hibernate:
       ddl-auto: update
   redis:

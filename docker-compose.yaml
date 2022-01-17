@@ -1,7 +1,7 @@
 version: "3"
 services:
   svc-web:
-    image: zx5435/iothub-echo:0.1.0
+    image: ghcr.io/wolanx/iothub-echo
     ports:
       - 1883:1883
       - 18830:8080

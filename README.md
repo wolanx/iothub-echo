@@ -4,8 +4,8 @@
 
 项目 | 地址 | 描述
 ----|-----|-----
-iot-echo | [github.com/zx5435/iot-echo](https://github.com/zx5435/iot-echo) | 设备端(go) 采集数据，发数据
-iothub-echo | [github.com/zx5435/iothub-echo](https://github.com/zx5435/iothub-echo) | 服务端(java) 收数据，处理数据
+iot-echo | [github.com/wolanx/iot-echo](https://github.com/wolanx/iot-echo) | 设备端(go) 采集数据，发数据
+iothub-echo | [github.com/wolanx/iothub-echo](https://github.com/wolanx/iothub-echo) | 服务端(java) 收数据，处理数据
 
 ## Intro
 
@@ -25,10 +25,10 @@ iothub-echo | [github.com/zx5435/iothub-echo](https://github.com/zx5435/iothub-e
 ```shell
 # 方式 1 docker
 # todo
-docker run --restart=unless-stopped --name iothub -d -p 1883:1883 zx5435/iothub-echo:0.1.0
+docker run --restart=unless-stopped --name iothub -d -p 1883:1883 ghcr.io/wolanx/iothub-echo:0.1.0
 
 # 方式 2 docker-compose
-wget https://raw.githubusercontent.com/zx5435/iothub-echo/main/__cicd__/docker-compose.yaml
+wget https://raw.githubusercontent.com/wolanx/iothub-echo/main/__cicd__/docker-compose.yaml
 docker-compose up -d
 
 # 方式 3 k8s

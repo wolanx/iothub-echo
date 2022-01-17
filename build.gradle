@@ -5,8 +5,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-group = 'com.zx5435'
-version = '0.1.0'
+group = 'com.wolanx'
+version = '1.0.0'
 sourceCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 
@@ -21,11 +21,11 @@ jib {
         image = 'openjdk:8u302-jre'
     }
     to {
-        image = 'zx5435/iothub-echo'
+        image = 'wolanx/iothub-echo'
         tags = [version.toString()]
     }
     container {
-        mainClass = 'com.zx5435.echo.iothub.IotHubApplication'
+        mainClass = 'com.wolanx.echo.iothub.IotHubApplication'
         jvmFlags = ['-XX:+UnlockExperimentalVMOptions', '-XX:+UseCGroupMemoryLimitForHeap', '-XX:MaxRAMPercentage=75.0']
         //        args = ['some', 'args']
         ports = ['1883', '8080']
