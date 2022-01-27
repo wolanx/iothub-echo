@@ -18,7 +18,7 @@ repositories {
 
 jib {
     from {
-        image = 'openjdk:8u302-jre'
+        image = 'openjdk:11-jre'
     }
     to {
         image = 'wolanx/iothub-echo'
