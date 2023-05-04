@@ -37,33 +37,20 @@ public class IotHubHandler extends SimpleChannelInboundHandler<MqttMessage> {
         log.info(mqttMessageType.toString());
 
         switch (mqttMessageType) {
-            case CONNECT:
+            case CONNECT -> {
                 if (msg instanceof MqttConnectMessage) {
                     connectProcessor.process(ctx, (MqttConnectMessage) msg);
                 } else {
                     connectProcessor.processOther(ctx, msg);
                 }
-                break;
-            case DISCONNECT:
-                disconnectProcessor.process(ctx, msg);
-                break;
-            case PINGREQ:
-                pingReqProcessor.process(ctx, msg);
-                break;
-            case SUBSCRIBE:
-                SubscribeProcessor.INSTANCE.process(ctx, (MqttSubscribeMessage) msg);
-                break;
-            case UNSUBSCRIBE:
-                UnsubscribeProcessor.INSTANCE.process(ctx, (MqttUnsubscribeMessage) msg);
-                break;
-            case PUBACK:
-                PubAckProcessor.INSTANCE.process(ctx, (MqttPubAckMessage) msg);
-                break;
-            case PUBLISH:
-                publishProcessor.process(ctx, (MqttPublishMessage) msg);
-                break;
-            default:
-                log.error("todo = " + mqttMessageType);
+            }
+            case DISCONNECT -> disconnectProcessor.process(ctx, msg);
+            case PINGREQ -> pingReqProcessor.process(ctx, msg);
+            case SUBSCRIBE -> SubscribeProcessor.INSTANCE.process(ctx, (MqttSubscribeMessage) msg);
+            case UNSUBSCRIBE -> UnsubscribeProcessor.INSTANCE.process(ctx, (MqttUnsubscribeMessage) msg);
+            case PUBACK -> PubAckProcessor.INSTANCE.process(ctx, (MqttPubAckMessage) msg);
+            case PUBLISH -> publishProcessor.process(ctx, (MqttPublishMessage) msg);
+            default -> log.error("todo = " + mqttMessageType);
         }
     }
 

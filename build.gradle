@@ -1,13 +1,13 @@
 plugins {
     id 'java'
-    id 'com.google.cloud.tools.jib' version '2.6.0'
-    id 'org.springframework.boot' version '2.4.3'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.google.cloud.tools.jib' version '3.3.1'
 }
 
 group = 'com.wolanx'
 version = '1.0.0'
-sourceCompatibility = '1.8'
+sourceCompatibility = '15'
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
@@ -18,7 +18,7 @@ repositories {
 
 jib {
     from {
-        image = 'openjdk:11-jre'
+        image = 'openjdk:15-slim'
     }
     to {
         image = 'wolanx/iothub-echo'
@@ -36,8 +36,8 @@ jib {
 
 dependencies {
     // mqtt
-    implementation 'io.netty:netty-all:4.1.66.Final'
-    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+    implementation 'io.netty:netty-all:4.1.86.Final'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.1'
 
     // dev
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

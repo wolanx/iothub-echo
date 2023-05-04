@@ -43,7 +43,7 @@ public class DeviceStateService {
     }
 
     public void markOffline(String username) {
-        log.info(username);
+        log.info("markOffline {}", username);
         stringRedisTemplate.delete("device:online:" + username);
     }
 
